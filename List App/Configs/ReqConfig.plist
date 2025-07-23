@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<!--
+   ReqConfig.plist
+   List App
+
+   Created by Lalana Thanthirigama on 2025-07-23.
+   Copyright (c) 2025 ___ORGANIZATIONNAME___. All rights reserved.
+-->
+<plist version="1.0">
+<dict>
+    <key>BaseURL</key>
+    <string>https://picsum.photos</string>
+    <key>APIVersion</key>
+    <string>v2</string>
+    <key>Endpoints</key>
+    <dict>
+        <key>ImageList</key>
+        <string>/v2/list</string>
+    </dict>
+</dict>
+</plist>
