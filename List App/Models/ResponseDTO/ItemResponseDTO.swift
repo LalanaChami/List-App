@@ -6,12 +6,12 @@
 //
 
 public struct ItemResponseDTO: Decodable, Identifiable {
-    let id: String
-    let author: String
-    let width: Int
-    let height: Int
-    let url: String
-    let downloadUrl: String
+    public let id: String
+    public let author: String
+    public let width: Int
+    public let height: Int
+    public let url: String
+    public let downloadUrl: String
     
     enum CodingKeys: String, CodingKey {
         case id, author, width, height, url
