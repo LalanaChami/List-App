@@ -1,5 +1,9 @@
 # List-App
 
+<p align="center">
+  <img src="Demo/codingAssingmentReco.gif" width="400" alt="Demo GIF" />
+</p>
+
 ## Overview
 List-App is an iOS application built as an assessment project. It demonstrates a clean implementation of the MVVM (Model-View-ViewModel) architecture, uses Core Data for local data persistence, and uses Combine for reactive programming. The app displays a list of items fetched from https://picsum.photos/v2/list , allows users to add, delete, and reorder items, and persists user changes locally.
 
