@@ -8,6 +8,7 @@
 import CoreData
 import Foundation
 import Combine
+import SwiftUI
 
 class ItemScreenViewModel : ObservableObject {
     let container : NSPersistentContainer
@@ -73,15 +74,27 @@ class ItemScreenViewModel : ObservableObject {
         newItem.height = Int16(randomItem.height)
         newItem.url = randomItem.url
         newItem.downloadUrl = randomItem.downloadUrl
-        saveAddedItem()
+        saveChanges()
     }
     
-    func saveAddedItem() {
+    func saveChanges() {
         do {
             try container.viewContext.save()
             fetchSavedItems()
         } catch let error {
             print("Couldnt save the Item entity: \(error)")
         }
+    }
+
+    func deleteItem(at offsets: IndexSet) {
+        for index in offsets {
+            let item = savedItems[index]
+            container.viewContext.delete(item)
+        }
+        saveChanges()
+    }
+
+    func moveItem(from source: IndexSet, to destination: Int) {
+        savedItems.move(fromOffsets: source, toOffset: destination)
     }
 }

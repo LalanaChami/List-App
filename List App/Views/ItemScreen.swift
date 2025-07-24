@@ -16,12 +16,23 @@ public struct ItemScreen: View {
             VStack(alignment: .leading, spacing: 20) {
                 List {
                     ForEach(itemScreenViewModel.savedItems) { item in
-                        NavigationLink {
-                            Text("Item at \(item.author)")
-                        } label: {
-                            Text(item.author ?? "")
+                        HStack {
+                            if let imageUrl = item.downloadUrl, let url = URL(string: imageUrl) {
+                                AsyncImage(url: url) { image in
+                                    image.resizable()
+                                        .aspectRatio(contentMode: .fit)
+                                        .frame(width: 50, height: 50)
+                                        .cornerRadius(8)
+                                } placeholder: {
+                                    ProgressView()
+                                        .frame(width: 50, height: 50)
+                                }
+                            }
+                            Text(item.author ?? "Unknown Author")
                         }
                     }
+                    .onDelete(perform: deleteItem)
+                    .onMove(perform: moveItem)
                 }
             }
             .navigationTitle("Items")
@@ -29,7 +40,7 @@ public struct ItemScreen: View {
                 ToolbarItem(placement: .navigationBarTrailing) {
                     EditButton()
                 }
-                ToolbarItem {
+                ToolbarItem(placement: .navigationBarTrailing) {
                     Button(action: {
                         itemScreenViewModel.addRandomNewItem()
                     }) {
@@ -38,6 +49,14 @@ public struct ItemScreen: View {
                 }
             }
         }
+    }
+
+    private func deleteItem(at offsets: IndexSet) {
+        itemScreenViewModel.deleteItem(at: offsets)
+    }
+
+    private func moveItem(from source: IndexSet, to destination: Int) {
+        itemScreenViewModel.moveItem(from: source, to: destination)
     }
 }
 
