@@ -50,6 +50,8 @@ class ItemScreenViewModel : ObservableObject {
     
     func fetchSavedItems() {
         let request = NSFetchRequest<ItemEntity>(entityName: "ItemEntity")
+        let sortDescriptor = NSSortDescriptor(key: "order", ascending: true)
+        request.sortDescriptors = [sortDescriptor]
         do {
             savedItems = try container.viewContext.fetch(request)
         } catch let error {
@@ -74,6 +76,7 @@ class ItemScreenViewModel : ObservableObject {
         newItem.height = Int16(randomItem.height)
         newItem.url = randomItem.url
         newItem.downloadUrl = randomItem.downloadUrl
+        newItem.order = Int16(savedItems.count)
         saveChanges()
     }
     
@@ -88,13 +91,25 @@ class ItemScreenViewModel : ObservableObject {
 
     func deleteItem(at offsets: IndexSet) {
         for index in offsets {
-            let item = savedItems[index]
-            container.viewContext.delete(item)
+            let itemToDelete = savedItems[index]
+            container.viewContext.delete(itemToDelete)
         }
+        savedItems.remove(atOffsets: offsets)
+        
+        for (index, item) in savedItems.enumerated() {
+            item.order = Int16(index)
+        }
+    
         saveChanges()
     }
 
     func moveItem(from source: IndexSet, to destination: Int) {
         savedItems.move(fromOffsets: source, toOffset: destination)
+        
+        for (index, item) in savedItems.enumerated() {
+            item.order = Int16(index)
+        }
+        
+        saveChanges()
     }
 }
