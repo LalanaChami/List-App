@@ -15,11 +15,11 @@ public struct ItemScreen: View {
         NavigationView {
             VStack(alignment: .leading, spacing: 20) {
                 List {
-                    ForEach(itemScreenViewModel.items) { item in
+                    ForEach(itemScreenViewModel.savedItems) { item in
                         NavigationLink {
                             Text("Item at \(item.author)")
                         } label: {
-                            Text(item.author)
+                            Text(item.author ?? "")
                         }
                     }
                 }
@@ -31,7 +31,7 @@ public struct ItemScreen: View {
                 }
                 ToolbarItem {
                     Button(action: {
-                        print("pressed")
+                        itemScreenViewModel.addRandomNewItem()
                     }) {
                         Label("Add Item", systemImage: "plus")
                     }
