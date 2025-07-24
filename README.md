@@ -1,7 +1,7 @@
 # List-App
 
 <p align="center">
-  <img src="Demo/codingAssingmentReco.gif" width="400" alt="Demo GIF" />
+  <img src="Demo/codingAssingmentReco.gif" width="300"/>
 </p>
 
 ## Overview
